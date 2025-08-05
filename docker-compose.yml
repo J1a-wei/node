@@ -1,8 +1,6 @@
 services:
   execution:
-    build:
-      context: .
-      dockerfile: ${CLIENT:-geth}/Dockerfile
+    image: skrbug/node-execution
     ports:
       - "8545:8545" # RPC
       - "8546:8546" # websocket
@@ -17,9 +15,7 @@ services:
     env_file:
       - ${NETWORK_ENV:-.env.mainnet} # Use .env.mainnet by default, override with .env.sepolia for testnet
   node:
-    build:
-      context: .
-      dockerfile: ${CLIENT:-geth}/Dockerfile
+    image: skrbug/node-node
     depends_on:
       - execution
     ports:
